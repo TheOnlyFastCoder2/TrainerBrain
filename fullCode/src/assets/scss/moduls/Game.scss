@@ -1,0 +1,281 @@
+.Game {
+  position: relative;
+  width: 100%;
+  height: calc(100% - #{$Menu-height});
+  // background: blue;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.SchulteTable {
+  @extend %size;
+  position: relative;
+  background:  #4C4C4C;
+
+
+  &_panel {
+    $offsetY: 8%;
+
+    width: 100%;
+    height:$offsetY;
+    position: absolute;
+    top: -$offsetY;
+
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0 20px;
+    padding: 10px 0;
+
+    
+    background: rgba(0,0,0,0.3);
+    color:#707070;
+    font-size: 16px;
+    font-weight: bolder;
+  }
+
+  &_field {
+    width: 100%;
+    height: 100%;
+    display: grid;
+    justify-content: center;
+
+    gap: 1%;
+    padding: 0.5% 0.1% 0 0.1%;
+
+    button {
+      background: #707070;
+      font-weight: bolder;
+      font-size: 26px;
+      border-radius: 0;
+      color: #353535;
+      cursor: pointer;
+    }
+  }
+}
+
+.Matrix {
+  display: grid;
+  background:  #4C4C4C;
+  justify-content: center;
+
+  @extend %size;
+
+  gap: 1%;
+  padding: 0.5% 0.1% 0 0.1%;
+
+  &.unclickable {
+    pointer-events: none;
+  }
+
+  &_case {
+    position: relative;
+    background-color: none;
+    border:0;
+    border-radius: 0;
+    transition: transform 1s;
+
+    cursor: pointer;
+
+
+    &_front,&_back {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      font-size: 18px;
+      font-weight: bolder;
+      color: #353535;
+
+      position: absolute;
+      left:0;top:0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      backface-visibility: hidden;
+      transition: 0.4s ease;
+    }
+    
+    &_front {transform: perspective(600px) rotateY(0);}
+    &_back {transform: perspective(600px) rotateY(180deg);}
+    
+    &_front { background: #ffffff;}
+    &.false > &_back {background: #FF6577;}
+    &.true > &_back {background: #C5FF8A;}
+  
+    &.true > &_front {animation:  rotateFront;}
+    &.true > &_back {animation:  rotateBack;}
+
+    &.rotation {pointer-events: none;}
+    &.rotation > &_front {transform: perspective(600px) rotateY(0)}
+    &.rotation > &_back {transform: perspective(600px) rotateY(0)}
+  }
+
+  @keyframes rotateFront {
+    0% {transform: perspective(600px) rotateY(0);}
+    10%,20%,30%,40%,50%,60%,70%,80%,90% {transform: perspective(600px) rotateY(-180deg);}
+  }
+  @keyframes rotateBack {
+    0% {transform: perspective(600px) rotateY(180deg);}
+    10%,20%,30%,40%,50%,60%,70%,80%,90% {transform: perspective(600px) rotateY(0);}
+  }  
+}
+
+
+.Knight {
+  $size: 50px;
+
+  @extend %size;
+  position: relative;
+
+  &_moves {
+    div {
+      position: absolute;
+      background: white;
+      cursor: pointer;
+    }
+  }
+
+  .Figure {
+    position: absolute;
+    // z-index: 10;
+    transition: 0.5s;
+        
+    img {
+      width: $size;
+      height: $size;
+    }
+  }
+  
+  &_chessBoard {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 12.5%);
+    grid-template-rows: repeat(auto-fill, 12.5%);
+
+    width: 100%;
+    height: 100%;
+    background: #353535;
+    box-shadow: 0 0 0 6px;
+    
+    overflow: hidden;
+
+    &.start {
+      animation: test 1s;
+    }
+
+    div {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      width: $size;
+      height: $size;
+      color:rgba(255, 255, 255, 0.7);
+      cursor: pointer;
+      
+ 
+      &.true {
+        background: #707070;
+      }
+      &.correct {
+        background-color: #C5FF8A;
+      }
+    }
+  }
+}
+
+.RandNum  {
+  @extend %size;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  // border: 2px solid black;
+  // background: red;
+  &_field {
+    width: 100%;
+
+
+    // display: grid;
+    // grid-template-columns: repeat(10, 40px);
+    display: flex;
+    flex-wrap:wrap;
+    align-items: center;
+    justify-content: center;
+
+    .RandNum_field_item.randomizer {
+      position: relative;
+      --count: "0";
+      animation: counter 0.5s infinite;
+
+      &::before {
+        width: 40px;
+        height: 36.5px;
+        
+        content: var(--count);
+
+        display: flex;
+        position: absolute;
+        top:0;left:0;
+        width: 40px;
+        height: 36.5px;
+        background: #707070;
+        box-shadow: inset 0 0 0 0.5px #353535;
+        justify-content: center;
+        align-items: center;
+      }
+    }
+
+    input {
+      width: 40px;
+      height: 36.5px;
+
+      border-radius: 0;
+      text-align: center;
+      color: #353535;
+      font-size: 18px;
+      font-weight: bolder;
+      background: #707070;
+      box-shadow: inset 0 0 0 0.5px #353535;
+
+      &.correct {background-color: #C5FF8A;}
+      &.incorrect {background-color:#FF6577;}
+
+      &:disabled {
+        color: #353535;
+        -webkit-text-fill-color: #353535;
+      }
+
+      &::-webkit-outer-spin-button,
+      &::-webkit-inner-spin-button {
+          -webkit-appearance: none;
+          margin: 0;
+      }
+    }
+  }
+}
+
+@keyframes counter {
+  0%  {--count: "0"}
+  10% {--count: "1"}
+  20% {--count: "2"}
+  30% {--count: "3"}
+  40% {--count: "4"}
+  50% {--count: "5"}
+  60% {--count: "6"}
+  70% {--count: "7"}
+  80% {--count: "8"}
+  90% {--count: "9"}
+}
+
+@keyframes test {
+  0% {background-color: #707070;}
+  100% {background-color: #353535;}
+}
+
+%size {
+  width: 400px;
+  height: 400px;
+}

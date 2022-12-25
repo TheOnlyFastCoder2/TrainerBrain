@@ -1,0 +1,47 @@
+.FinishGame {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: rgba($color: #000000, $alpha: 0.8);
+  z-index: 999999;
+
+  canvas {
+    position: absolute;
+    top:0%;left:0;
+    width: 100%;
+    height: 100%;
+  }
+
+  h1 {
+    font-size: 54px;
+    font-style: italic;
+    text-transform: uppercase;
+    color: #ffffff;
+  }
+
+  &.false {
+    opacity: 0;
+    transition: opacity 2s;
+  }
+
+  .wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    button {
+      margin-top: 15px;
+      padding: 10px 15px;
+      font-size: 15px;
+      color: #ffffff;
+      border: 2.5px solid rgba($color: #69C807, $alpha: 0.8);
+      background-color: rgba($color: #000000, $alpha: 0.8);
+      z-index: 999;
+      font-weight: bolder;
+      cursor: pointer;
+    }
+  }
+}

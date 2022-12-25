@@ -1,0 +1,40 @@
+.Range {
+
+
+  width: 90%;
+
+  
+  border-radius: $radius;
+ 
+  &_value {
+    text-align: center;
+    margin-top: 20px;
+    padding: 10px 0;
+    font-weight: bolder;
+    border-radius: $radius;
+    background-color: #353535;
+  }
+
+  &_track {
+    width: 100%;
+    height: 6px;
+    margin: auto;
+
+    border-radius: $radius;
+    background: #353535;
+    position: relative;
+
+    &_thumb {
+      position: absolute;
+
+      top: -100%;
+
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+
+      background: #ffffff;
+      cursor: pointer;
+    }
+  }
+}

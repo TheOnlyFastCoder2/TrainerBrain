@@ -1,0 +1,110 @@
+$size_game: calc(#{$Menu-height  * 0.8});
+$size_option: calc(#{$Menu-height  * 0.7});
+
+.Menu {
+  position: relative;
+  width: 100%;
+  height: $Menu-height;
+  display: flex;
+  background: #353535;
+  justify-content: space-between;
+
+  &_swiper {
+    position: absolute;
+    left:calc(50% - #{$size_game}/2); 
+    bottom:calc(100% - #{$size_game}/2);
+    width:$size_game;
+    height:$size_game;
+    border-radius: 50%;
+    border:none;
+    background: #ffffff;
+    cursor:pointer;
+  }
+
+  &_games, &_options {
+    list-style-type: none;
+    z-index: 9;
+    background: #4C4C4C;
+    
+    li {
+      border:none;
+      border-radius: 2px;
+      background:rgba($color: #ffffff, $alpha: 0.2);
+      cursor:pointer;
+    }
+  }
+
+  &_options {
+    width: 30%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0 10px;
+
+    li {
+      width: $size_option;
+      height: $size_option;
+    }
+  } 
+
+  &_games {
+    // width: 70%;
+    width: 100%;
+    display: grid;
+    grid-template-columns:  repeat(auto-fill, $Menu-height) ;
+    grid-template-rows: repeat(auto-fill, $Menu-height) ;
+    justify-content: center;
+    align-items: center;
+    gap: 20px 20px;
+
+    li {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      font-size: 18px;
+      font-weight: bolder;
+      color:#ffffff;
+      width: $size_game;
+      height: $size_game;
+    }
+  }
+}
+
+.Menu.swiped {
+  position: absolute; 
+  top:0;left:0;
+  height: 100vh;
+  animation: swipe 0.7s;
+  
+  .Menu_swiper {
+    top:-$size_game;
+    z-index: 10;
+  }
+
+  .Menu_options {
+    width: 8%;
+    flex-direction: column;
+    justify-content: end;
+    gap: 20px 0;
+    padding: 40px 0;
+    // background: red;
+  }
+  
+  .Menu_games {
+    // width: 90%;
+    width: 100%;
+    padding: 40px 2%;
+    // background: red;
+
+    li {
+      width: 100%;
+      height: 100%;
+    }
+  }
+}
+
+@keyframes swipe {
+  0% {top: 150%;}
+  40% {top:0;}
+}

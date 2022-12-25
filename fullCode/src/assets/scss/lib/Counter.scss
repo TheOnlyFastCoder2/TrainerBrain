@@ -1,0 +1,31 @@
+.Counter {
+  h3 {
+    font-size: 14px;
+    margin-bottom: 5px;
+  }
+
+  div {
+      display: flex;
+      justify-content: space-between;
+      height: 35px;
+  
+      button {
+        width: 20%;
+        font-weight: bold;
+        font-size: 18px;
+        background: white;
+        cursor: pointer;
+      }
+
+      input {
+        width: 55%;
+        background: #353535;
+        color:white;
+        text-align: center;
+        font-weight: bold;
+        &::placeholder {
+          color:white;
+        }
+      }
+  }
+}

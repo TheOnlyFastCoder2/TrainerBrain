@@ -1,0 +1,56 @@
+.DropList {
+  $offsetX: 20px;
+  $height: 35px;
+
+  position: relative;
+  width: 193px;
+  height: $height;
+  
+  border: 1px solid var(--mainColor);
+  cursor: pointer;
+  background-color: #353535;
+
+  ul {
+    position: absolute;
+    left: -0.1%;
+    width: 100%;
+    top: 110%;
+    padding: 10px 16px;
+    border-radius: 4px;
+    box-shadow: 0 10px 2vh -0.5vw rgba(0,0,0,0.3);
+    background-color: #353535;
+    list-style-type: none;
+
+    li {
+      text-align: center;
+      margin-bottom: 10px;
+      // padding: 5px 22px;
+      font-weight: 900;
+      opacity: 0.5;
+      &:hover , &.active {
+       opacity: 1;
+      }
+    }
+  }
+
+  summary {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    top: calc($height / 2 - 14px);
+    
+    position: relative;
+    font-weight: 900;
+    font-size: 16px;
+    color: var(--mainColor);
+  }
+
+  &[open] {
+    summary {
+      img {
+        transform: rotate(180deg);
+      }
+    }
+  }
+}

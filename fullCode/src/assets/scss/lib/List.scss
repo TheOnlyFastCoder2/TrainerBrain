@@ -1,0 +1,41 @@
+.List {
+  &.column {
+    .List_wrapper {
+      flex-direction: column;
+    }
+  }
+
+  h3 {
+    font-size: 14px;
+    font-weight: bolder;
+    margin-bottom: 10px;
+  }
+
+  &_wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    gap:5px;
+    list-style-type: none;
+
+    li {
+      font-size: 14px;
+      text-align: center;
+      font-weight: bold;
+      padding: 10px;
+      border-radius: 3px;
+      cursor: pointer;
+      background-color: #353535;
+      transition: background 0.2s;
+  
+      &.active {
+        background: rgba($color: #ffffff, $alpha: 0.1);
+      }
+  
+      &:hover {
+        background: rgba($color: #ffffff, $alpha: 0.1);
+      }
+    }
+  }
+  
+}
