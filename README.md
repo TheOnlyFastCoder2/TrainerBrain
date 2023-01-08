@@ -1,6 +1,7 @@
-# TrainerBrain
-https://theonlyfastcoder2.github.io/TrainerBrain/
+# Tauri + React
 
-preview 
-![image](https://user-images.githubusercontent.com/60759188/210115599-a0380659-f8a9-4296-a3a6-527d0edfb783.png)
+This template should help get you started developing with Tauri and React in Vite.
 
+## Recommended IDE Setup
+
+- [VS Code](https://code.visualstudio.com/) + [Tauri](https://marketplace.visualstudio.com/items?itemName=tauri-apps.tauri-vscode) + [rust-analyzer](https://marketplace.visualstudio.com/items?itemName=rust-lang.rust-analyzer)
