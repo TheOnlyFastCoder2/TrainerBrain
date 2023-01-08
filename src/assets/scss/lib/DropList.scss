@@ -4,11 +4,12 @@
 
   position: relative;
   width: 193px;
-  height: $height;
-  
+
+
   border: 1px solid var(--mainColor);
   cursor: pointer;
   background-color: #353535;
+
 
   ul {
     position: absolute;
@@ -37,7 +38,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100%;
+    height: $height;
     top: calc($height / 2 - 14px);
     
     position: relative;

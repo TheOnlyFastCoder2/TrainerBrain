@@ -106,8 +106,8 @@ export default function ({
         <span>Успех: {state.successes}</span>
       </p>
       
-      <input type="submit" value="restart" onClick={restart}/>
-      <input type="submit" value="reset" onClick={reset}/>
+      <input type="submit" value="обновить" onClick={restart}/>
+      <input type="submit" value="сбросить настройкий" onClick={reset}/>
 
     </ControlPanel>
   )

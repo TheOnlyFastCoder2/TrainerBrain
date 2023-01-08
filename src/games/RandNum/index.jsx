@@ -1,5 +1,4 @@
 import { useEffect, useState, useRef } from "react";
-import getRandomDigit from 'lib/getRandomDigit';
 
 import FinishGame from 'lib/components/FinishGame';
 import Settings from "./Settings";

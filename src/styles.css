@@ -677,7 +677,6 @@ button, input {
 .DropList {
   position: relative;
   width: 193px;
-  height: 35px;
   border: 1px solid var(--mainColor);
   cursor: pointer;
   background-color: #353535; }
@@ -702,7 +701,7 @@ button, input {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100%;
+    height: 35px;
     top: calc($height / 2 - 14px);
     position: relative;
     font-weight: 900;
