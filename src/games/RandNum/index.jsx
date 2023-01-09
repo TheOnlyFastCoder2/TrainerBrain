@@ -142,7 +142,7 @@ export function Game () {
             return (
               <div key={i} className="RandNum_field_item">
                  <input 
-                    type="number"
+                    type="text"
                     onInput={checker}
                   />
               </div>
