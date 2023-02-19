@@ -3,7 +3,7 @@ import DropList from "lib/components/DropList";
 import Counter from "lib/components/Counter";
 import List from "lib/components/List";
 import { useState } from 'react';
-
+import Range from "lib/components/Range";
 
 export default function ({
   restartGame,
@@ -48,14 +48,6 @@ export default function ({
     }
     return count;
   }
-  
-  function setCounterTime(mode,count) {
-    switch (mode) {
-      case "+": count+1 <= state.timeShow.max && count++;break;
-      case "-": count-1 >= state.timeShow.min && count--;break;
-    }
-    return count;
-  }
 
   return ( 
     <ControlPanel > 
@@ -87,12 +79,13 @@ export default function ({
         }}
       />
 
-      <Counter 
-        title={"Время отображения"}
-        count={state.timeShow.curr}
-        
-        handler={setCounterTime}
-        setHook={(count) => {
+      <Range 
+        min={2} 
+        max={30}
+        step={0.1}
+        prefix = "s"
+        title="Время отображения"
+        handler = {(count) => {
           storeOfChanges.timeShow = {
             min: state.timeShow.min,
             max: state.timeShow.max,

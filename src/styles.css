@@ -564,7 +564,7 @@ button, input {
       .Knight_chessBoard div.true {
         background: #707070; }
       .Knight_chessBoard div.correct {
-        background-color: #C5FF8A; }
+        background-color: rgba(197, 255, 138, 0.8); }
 
 .RandNum {
   display: flex;
@@ -577,24 +577,6 @@ button, input {
     flex-wrap: wrap;
     align-items: center;
     justify-content: center; }
-    .RandNum_field .RandNum_field_item.randomizer {
-      position: relative;
-      --count: "0";
-      animation: counter 0.5s infinite; }
-      .RandNum_field .RandNum_field_item.randomizer::before {
-        width: 40px;
-        height: 36.5px;
-        content: var(--count);
-        display: flex;
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 40px;
-        height: 36.5px;
-        background: #707070;
-        box-shadow: inset 0 0 0 0.5px #353535;
-        justify-content: center;
-        align-items: center; }
     .RandNum_field input {
       width: 40px;
       height: 36.5px;
@@ -616,27 +598,6 @@ button, input {
         -webkit-appearance: none;
         margin: 0; }
 
-@keyframes counter {
-  0% {
-    --count: "0"; }
-  10% {
-    --count: "1"; }
-  20% {
-    --count: "2"; }
-  30% {
-    --count: "3"; }
-  40% {
-    --count: "4"; }
-  50% {
-    --count: "5"; }
-  60% {
-    --count: "6"; }
-  70% {
-    --count: "7"; }
-  80% {
-    --count: "8"; }
-  90% {
-    --count: "9"; } }
 @keyframes test {
   0% {
     background-color: #707070; }
@@ -660,6 +621,11 @@ button, input {
   .ControlPanel > * {
     width: 193px;
     border-radius: 4px; }
+  .ControlPanel h3 {
+    font-size: 14px;
+    margin-bottom: 15px; }
+    .ControlPanel h3:first-letter {
+      text-transform: uppercase; }
   .ControlPanel .Scores {
     display: flex;
     justify-content: space-between;
@@ -710,9 +676,6 @@ button, input {
   .DropList[open] summary img {
     transform: rotate(180deg); }
 
-.Counter h3 {
-  font-size: 14px;
-  margin-bottom: 5px; }
 .Counter div {
   display: flex;
   justify-content: space-between;
@@ -782,10 +745,6 @@ button, input {
 
 .List.column .List_wrapper {
   flex-direction: column; }
-.List h3 {
-  font-size: 14px;
-  font-weight: bolder;
-  margin-bottom: 10px; }
 .List_wrapper {
   display: flex;
   flex-wrap: wrap;

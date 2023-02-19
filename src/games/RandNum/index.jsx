@@ -11,6 +11,7 @@ export function Game () {
 
   const [timeIDS,setTimeIDS] = useState({
     timeout: [],
+    interval: [],
   })
 
   const [state, setNewState] = useState(logic.startData);
@@ -56,31 +57,44 @@ export function Game () {
   function startAnim() {
     const field = refRandNum_field.current;
 
-    const toggleRondomizer = (mode,flag) => {
+    const randomizer = (startTime) => {
+      const delta = Date.now() - startTime;
+      return Math.floor(delta / 10) % 9;
+    }
+
+    const toggleRondomizer = (action, startTime) => {
+      const actions = {
+        showAnimOfNumbers: randomizer.bind(null,startTime),
+        showRealNumbers: (count) => state.arr[count],
+        showEmptyString: () => ""
+      }
+
       let count = 0;
       for(const item of field.children ) {
-        item.classList[mode]("randomizer");
-        item.children[0].value = (
-          flag ? state.arr[count++] : ""
-        );
+        item.children[0].value = actions[action](count++);
       }
     }
     
-    toggleRondomizer("add",false);
-
     const delayAnim = 2000; 
+    const startTime = Date.now();
+    const timeID_forCounter = setInterval(() => {
+      toggleRondomizer("showAnimOfNumbers", startTime);
+    }, 50)
+   
     const timeID_forAnimation = setTimeout(() => {
-      toggleRondomizer("remove",true);
       clearTimeout(timeID_forAnimation);
+      clearInterval(timeID_forCounter);
+      toggleRondomizer("showRealNumbers");
     },delayAnim);
 
     const timeID_forShowNums  = setTimeout(() => {
-      toggleRondomizer("remove",false);
       clearTimeout(timeID_forShowNums);
+      toggleRondomizer("showEmptyString");
     }, state.timeForRemb+delayAnim);
 
     timeIDS.timeout.push(timeID_forAnimation);
     timeIDS.timeout.push(timeID_forShowNums);
+    timeIDS.interval.push(timeID_forCounter);
     setTimeIDS(timeIDS);
   }
   
@@ -88,8 +102,10 @@ export function Game () {
 
   function clearTimeId() {
     timeIDS.timeout.forEach((ID) => clearTimeout(ID));
+    timeIDS.interval.forEach((ID) => clearInterval(ID));
     setTimeIDS({
       timeout: [],
+      interval: []
     })
   }
 

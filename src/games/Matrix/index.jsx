@@ -1,5 +1,4 @@
 import { useEffect, useState, useRef } from "react";
-import getRandomDigit from 'lib/getRandomDigit';
 import FinishGame from "lib/components/FinishGame";
 
 import * as logic from './logic';
@@ -7,9 +6,9 @@ import Settings from "./Settings";
 
 
 export  function Game () {
-  const [unclickable, setUnclickable] = useState("");
-  let [timeID,setTimeID] = useState(0);
   const refMatrix = useRef(null);
+  let [timeID,setTimeID] = useState(0);
+  const [unclickable, setUnclickable] = useState("");
 
   const [state,setNewState] = useState(logic.startData);
 

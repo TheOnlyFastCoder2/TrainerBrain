@@ -45,8 +45,8 @@ export function checkMove (target, state) {
       resault = "LOSE";
     }
   }
-
-  if(fails > state.gridOfCells.full * 0.1) {
+  
+  if(fails > state.gridOfCells.quantity * 0.1) {
     resault = "LOSE";
   }
 

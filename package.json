@@ -9,7 +9,8 @@
     "preview": "vite preview",
     "tauri": "tauri",
     "scss": "sass --watch ./src/assets/scss/bundler.scss:./src/styles.css",
-    "start": " concurrently -k \"npm run tauri dev\" \"npm run scss\" "
+    "startTauri": " concurrently -k \"npm run tauri dev\" \"npm run scss\" ",
+    "start": " concurrently -k \"vite\" \"npm run scss\" "
   },
   "dependencies": {
     "react": "^18.2.0",

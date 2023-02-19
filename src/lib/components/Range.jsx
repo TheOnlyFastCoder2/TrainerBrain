@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react"
 
-export default function ({min,max,step,prefix,handler}) {;
+export default function ({title, min, max, step, prefix, handler}) {;
   const refTrack = useRef(null);
   const refThumb = useRef(null);
 
@@ -42,12 +42,15 @@ export default function ({min,max,step,prefix,handler}) {;
   },[])
 
   return (
-    <div className="Range">
-      <div className="Range_track" ref={refTrack}>
-        <span className="Range_track_thumb" ref={refThumb}></span>
+    <>
+      <div className="Range">
+        {title && <h3>{title}</h3>}
+        <div className="Range_track" ref={refTrack}>
+          <span className="Range_track_thumb" ref={refThumb}></span>
+        </div>
+        <div className="Range_value">{value+prefix}</div>
       </div>
-      <div className="Range_value">{value+prefix}</div>
-    </div>
+    </>
   )
 
 }

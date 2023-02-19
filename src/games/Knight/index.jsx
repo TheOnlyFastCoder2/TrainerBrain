@@ -15,7 +15,7 @@ export function Game () {
   const [state,setNewState] = useState(logic.startData);
   let [timeID,setTimeID] = useState(0);
 
-  function setMove(featureMove) {
+  function setMove(cell, featureMove) {
     const result = logic.checkMove(featureMove, state);
 
     switch(result) {
@@ -29,6 +29,7 @@ export function Game () {
         break;
 
       case "CORRECT": 
+          cell.classList.add("correct")
           transferFigure(featureMove);
           setNewState({
             ...state,
@@ -128,7 +129,7 @@ function Grid({setMove}) {
     return (
       <div 
         key={i} 
-        onClick={() => setMove(i)}
+        onClick={({target}) => setMove(target, i)}
         className={`${i % 2 === row % 2}`}/>
     )
   })

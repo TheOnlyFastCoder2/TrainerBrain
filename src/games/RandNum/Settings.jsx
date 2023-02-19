@@ -39,6 +39,7 @@ export default function ({
         max={30}
         step={0.1}
         prefix = "s"
+        title="Время отображения"
         handler = {(val) => {
           storeOfChanges.timeForRemb = val * 1000;
         }}

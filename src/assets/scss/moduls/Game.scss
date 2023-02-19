@@ -175,16 +175,17 @@
       color:rgba(255, 255, 255, 0.7);
       cursor: pointer;
       
- 
+
       &.true {
         background: #707070;
       }
       &.correct {
-        background-color: #C5FF8A;
+        background-color: rgba($color: #C5FF8A, $alpha: 0.8);
       }
     }
   }
 }
+
 
 .RandNum  {
   @extend %size;
@@ -192,41 +193,14 @@
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  // border: 2px solid black;
-  // background: red;
+
   &_field {
     width: 100%;
 
-
-    // display: grid;
-    // grid-template-columns: repeat(10, 40px);
     display: flex;
     flex-wrap:wrap;
     align-items: center;
     justify-content: center;
-
-    .RandNum_field_item.randomizer {
-      position: relative;
-      --count: "0";
-      animation: counter 0.5s infinite;
-
-      &::before {
-        width: 40px;
-        height: 36.5px;
-        
-        content: var(--count);
-
-        display: flex;
-        position: absolute;
-        top:0;left:0;
-        width: 40px;
-        height: 36.5px;
-        background: #707070;
-        box-shadow: inset 0 0 0 0.5px #353535;
-        justify-content: center;
-        align-items: center;
-      }
-    }
 
     input {
       width: 40px;
@@ -257,18 +231,18 @@
   }
 }
 
-@keyframes counter {
-  0%  {--count: "0"}
-  10% {--count: "1"}
-  20% {--count: "2"}
-  30% {--count: "3"}
-  40% {--count: "4"}
-  50% {--count: "5"}
-  60% {--count: "6"}
-  70% {--count: "7"}
-  80% {--count: "8"}
-  90% {--count: "9"}
-}
+// @keyframes counter {
+//   0%  {--count: "0"}
+//   10% {--count: "1"}
+//   20% {--count: "2"}
+//   30% {--count: "3"}
+//   40% {--count: "4"}
+//   50% {--count: "5"}
+//   60% {--count: "6"}
+//   70% {--count: "7"}
+//   80% {--count: "8"}
+//   90% {--count: "9"}
+// }
 
 @keyframes test {
   0% {background-color: #707070;}
