@@ -194,6 +194,20 @@
   justify-content: center;
   flex-direction: column;
 
+  &.unclickable {
+    pointer-events: none;
+    -moz-user-select: none;
+   -khtml-user-select: none;
+   -webkit-user-select: none;
+
+   /*
+     Introduced in Internet Explorer 10.
+     See http://ie.microsoft.com/testdrive/HTML5/msUserSelect/
+   */
+   -ms-user-select: none;
+   user-select: none;
+  }
+
   span {
     display: block;
     color:   #707070;

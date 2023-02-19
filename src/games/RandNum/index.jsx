@@ -75,7 +75,7 @@ export function Game () {
       return Math.floor(delta / 10) % 9;
     }
 
-    const toggleRondomizer = (action, startTime) => {
+    const toggleRondomizer = (action, isDisable, startTime) => {
       const actions = {
         showAnimOfNumbers: randomizer.bind(null,startTime),
         showRealNumbers: (count) => state.arr[count],
@@ -85,24 +85,27 @@ export function Game () {
       let count = 0;
       for(const item of field.children ) {
         item.children[0].value = actions[action](count++);
+        item.children[0].disabled = isDisable;
       }
     }
     
     const delayAnim = 2000; 
     const startTime = Date.now();
+
+    field.classList.add("unclickable");
     const timeID_forCounter = setInterval(() => {
-      toggleRondomizer("showAnimOfNumbers", startTime);
+      toggleRondomizer("showAnimOfNumbers", true,startTime);
     }, 50)
    
     const timeID_forAnimation = setTimeout(() => {
       clearTimeout(timeID_forAnimation);
       clearInterval(timeID_forCounter);
-      toggleRondomizer("showRealNumbers");
+      toggleRondomizer("showRealNumbers", true);
     },delayAnim);
 
     const timeID_forShowNums  = setTimeout(() => {
       clearTimeout(timeID_forShowNums);
-      toggleRondomizer("showEmptyString");
+      toggleRondomizer("showEmptyString", false);
     }, state.timeForRemb+delayAnim);
 
     timeIDS.timeout.push(timeID_forAnimation);
