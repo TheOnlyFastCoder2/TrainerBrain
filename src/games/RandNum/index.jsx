@@ -22,33 +22,46 @@ export function Game () {
       target.disabled = true;
 
       const nextItem = () => {
-        return target.parentElement.nextElementSibling.children[0]
+        return target?.parentElement?.nextElementSibling?.children[0]
       };
-      
+
       switch (logic.checkСorrectness(+target.value, state)) {
         case "CORRECT": 
-          nextItem().focus();
+          nextItem()?.focus();
           target.classList.add("correct"); 
           break;
 
         case "INCORRECT": 
-          ++state.fails;
-          nextItem().focus();
+          state.fails++;
           target.value = state.arr[state.currentInd];
           target.classList.add("incorrect");
-          break;
-        
-        case "WIN": 
-          target.classList.add("correct");
-          setNewState({...state,isWon: [true]}); 
+          nextItem()?.focus();
           break;
           
-        case "LOSE":
+        case "CORRECT_WIN": 
+          target.classList.add("correct");
+          setNewState({...state,isWon: [true]}); 
+          return;
+
+        case "INCORRECT_WIN": 
+          target.classList.add("incorrect");
+          setNewState({...state,isWon: [true]}); 
+          return;
+          
+        case "CORRECT_LOSE":
+          target.classList.add("correct");
+          setNewState({...state, isWon:[false]}); 
+          return;
+        
+        case "INCORRECT_LOSE":
+          state.fails++;
           target.classList.add("incorrect");
           setNewState({...state,isWon: [false]}); 
-          break;
+          return;
       }
-      ++state.currentInd;
+
+      state.currentInd++;
+      setNewState({...state})
     }
     else target.value = ""
   }
@@ -68,7 +81,7 @@ export function Game () {
         showRealNumbers: (count) => state.arr[count],
         showEmptyString: () => ""
       }
-
+      
       let count = 0;
       for(const item of field.children ) {
         item.children[0].value = actions[action](count++);
@@ -98,8 +111,6 @@ export function Game () {
     setTimeIDS(timeIDS);
   }
   
-
-
   function clearTimeId() {
     timeIDS.timeout.forEach((ID) => clearTimeout(ID));
     timeIDS.interval.forEach((ID) => clearInterval(ID));
@@ -153,17 +164,21 @@ export function Game () {
       <FinishGame flag={state.isWon} {...{restartGame}}/>
 
       <div className="RandNum" key={state.stateId} >
-        <div className="RandNum_field" ref={refRandNum_field}>
-          {state.arr.map((_,i) => {
-            return (
-              <div key={i} className="RandNum_field_item">
-                 <input 
-                    type="text"
-                    onInput={checker}
-                  />
-              </div>
-            )
-          })}
+        <div>
+          <span>ошибки: {state.fails}/{Math.round(state.quantity * state.maxFails)}</span>
+          
+          <div className="RandNum_field" ref={refRandNum_field}>
+            {state.arr.map((_,i) => {
+              return (
+                <div key={i} className="RandNum_field_item">
+                  <input 
+                      type="text"
+                      onInput={checker}
+                    />
+                </div>
+              )
+            })}
+          </div>
         </div>
       </div>
     </>

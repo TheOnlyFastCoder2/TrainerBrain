@@ -194,6 +194,16 @@
   justify-content: center;
   flex-direction: column;
 
+  span {
+    display: block;
+    color:   #707070;
+    font-size: 12px;
+    font-weight: 900;
+    letter-spacing: 0.1rem;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+  }
+
   &_field {
     width: 100%;
 

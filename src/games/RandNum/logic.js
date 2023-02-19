@@ -5,7 +5,7 @@ export const startData = {
   timeForRemb: 2000,
 
   fails: 0,
-  maxFails: 0.3, // in percent
+  maxFails: 0.2, // in percent
   
   currentInd: 0,
   quantity:5,
@@ -15,7 +15,7 @@ export const startData = {
 
 export function checkСorrectness (variableVal, state) {
   const verificationVal = state.arr[state.currentInd];
-
+  // console.log(variableVal, verificationVal)
   let res = (
     verificationVal === variableVal
     ? "CORRECT"
@@ -23,15 +23,13 @@ export function checkСorrectness (variableVal, state) {
   );
 
   if(state.quantity === state.currentInd+1) {
-    const ratioOfNums = state.fails / state.quantity;
-
-    res = (
-      ratioOfNums < state.maxFails
-      ? "WIN"
-      : "LOSE"
+    res += "_"+(
+      state.fails >= Math.round(state.quantity * state.maxFails)
+      ? "LOSE"
+      : "WIN"
     )
   }
-
+  console.log(res)
   return res;
 }
 

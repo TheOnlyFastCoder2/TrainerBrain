@@ -5,7 +5,7 @@
  * 1. Correct the line height in all browsers.
  * 2. Prevent adjustments of font size after orientation changes in iOS.
  */
-@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;1,100;1,300;1,400;1,500;1,700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,300;0,400;0,500;0,700;1,100;1,300;1,400;1,500;1,700&display=swap");
 html {
   line-height: 1.15;
   /* 1 */
@@ -571,6 +571,14 @@ button, input {
   align-items: center;
   justify-content: center;
   flex-direction: column; }
+  .RandNum span {
+    display: block;
+    color: #707070;
+    font-size: 12px;
+    font-weight: 900;
+    letter-spacing: 0.1rem;
+    margin-bottom: 10px;
+    text-transform: uppercase; }
   .RandNum_field {
     width: 100%;
     display: flex;
