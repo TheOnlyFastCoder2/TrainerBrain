@@ -1,5 +1,5 @@
-$size_game: calc(#{$Menu-height  * 0.8});
-$size_option: calc(#{$Menu-height  * 0.7});
+$size_game: calc(#{$Menu-height * 0.8});
+$size_option: calc(#{$Menu-height * 0.7});
 
 .Menu {
   position: relative;
@@ -78,7 +78,7 @@ $size_option: calc(#{$Menu-height  * 0.7});
   animation: swipe 0.7s;
   
   .Menu_swiper {
-    top:-$size_game;
+    top:calc(-#{$size_game});
     z-index: 10;
   }
 

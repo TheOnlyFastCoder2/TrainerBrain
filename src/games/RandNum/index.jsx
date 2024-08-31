@@ -4,14 +4,18 @@ import FinishGame from 'lib/components/FinishGame';
 import Settings from "./Settings";
 
 import * as logic from './logic';
+import getRandomDigit from 'lib/getRandomDigit';
+import getMaxFails  from "lib/getMaxFails";
+
 
 export function Game () {
 
   const refRandNum_field = useRef(null);
 
-  const [timeIDS,setTimeIDS] = useState({
-    timeout: [],
-    interval: [],
+  const timeIDS = useRef({
+    intervalID_forCounter: 0,
+    timeoutID_forAnimation: 0,
+    timeoutID_forShowNums: 0,
   })
 
   const [state, setNewState] = useState(logic.startData);
@@ -25,43 +29,41 @@ export function Game () {
         return target?.parentElement?.nextElementSibling?.children[0]
       };
 
-      switch (logic.checkСorrectness(+target.value, state)) {
-        case "CORRECT": 
-          nextItem()?.focus();
-          target.classList.add("correct"); 
-          break;
+      setNewState((state) => {
+        switch (logic.checkСorrectness(+target.value, state)) {
+          case "CORRECT": 
+            nextItem()?.focus();
+            target.classList.add("correct"); 
+            break;
 
-        case "INCORRECT": 
-          state.fails++;
-          target.value = state.arr[state.currentInd];
-          target.classList.add("incorrect");
-          nextItem()?.focus();
-          break;
+          case "INCORRECT": 
+            ++state.fails;
+            target.value = state.arr[state.currentInd];
+            target.classList.add("incorrect");
+            nextItem()?.focus();
+            break;
+            
+          case "CORRECT_WIN": 
+            target.classList.add("correct");
+            return {...state,isWon: [true]};
+
+          case "INCORRECT_WIN": 
+            target.classList.add("incorrect");
+            return {...state,isWon: [true]};
+            
+          case "CORRECT_LOSE":
+            target.classList.add("correct");
+            return {...state, isWon:[false]};
           
-        case "CORRECT_WIN": 
-          target.classList.add("correct");
-          setNewState({...state,isWon: [true]}); 
-          return;
+          case "INCORRECT_LOSE":
+            ++state.fails;
+            target.classList.add("incorrect");
+            return {...state,isWon: [false]}; 
+        }
 
-        case "INCORRECT_WIN": 
-          target.classList.add("incorrect");
-          setNewState({...state,isWon: [true]}); 
-          return;
-          
-        case "CORRECT_LOSE":
-          target.classList.add("correct");
-          setNewState({...state, isWon:[false]}); 
-          return;
-        
-        case "INCORRECT_LOSE":
-          state.fails++;
-          target.classList.add("incorrect");
-          setNewState({...state,isWon: [false]}); 
-          return;
-      }
-
-      state.currentInd++;
-      setNewState({...state})
+        state.currentInd++;
+        return {...state}
+      })
     }
     else target.value = ""
   }
@@ -70,14 +72,10 @@ export function Game () {
   function startAnim() {
     const field = refRandNum_field.current;
 
-    const randomizer = (startTime) => {
-      const delta = Date.now() - startTime;
-      return Math.floor(delta / 10) % 9;
-    }
+    const toggleRondomizer = (action, isDisable) => {
 
-    const toggleRondomizer = (action, isDisable, startTime) => {
       const actions = {
-        showAnimOfNumbers: randomizer.bind(null,startTime),
+        showAnimOfNumbers: getRandomDigit.bind(null, 0, 9),
         showRealNumbers: (count) => state.arr[count],
         showEmptyString: () => ""
       }
@@ -90,37 +88,31 @@ export function Game () {
     }
     
     const delayAnim = 2000; 
-    const startTime = Date.now();
 
     field.classList.add("unclickable");
-    const timeID_forCounter = setInterval(() => {
-      toggleRondomizer("showAnimOfNumbers", true,startTime);
-    }, 50)
+    timeIDS.current.intervalID_forCounter = setInterval(() => {
+      toggleRondomizer("showAnimOfNumbers", true);
+    }, 1)
    
-    const timeID_forAnimation = setTimeout(() => {
-      clearTimeout(timeID_forAnimation);
-      clearInterval(timeID_forCounter);
+    timeIDS.current.timeoutID_forAnimation = setTimeout(() => {
+      clearTimeId('timeoutID_forAnimation','intervalID_forCounter');
       toggleRondomizer("showRealNumbers", true);
     },delayAnim);
 
-    const timeID_forShowNums  = setTimeout(() => {
-      clearTimeout(timeID_forShowNums);
+    timeIDS.current.timeoutID_forShowNums  = setTimeout(() => {
+      clearTimeId('timeoutID_forShowNums','intervalID_forCounter');
       toggleRondomizer("showEmptyString", false);
     }, state.timeForRemb+delayAnim);
-
-    timeIDS.timeout.push(timeID_forAnimation);
-    timeIDS.timeout.push(timeID_forShowNums);
-    timeIDS.interval.push(timeID_forCounter);
-    setTimeIDS(timeIDS);
   }
   
-  function clearTimeId() {
-    timeIDS.timeout.forEach((ID) => clearTimeout(ID));
-    timeIDS.interval.forEach((ID) => clearInterval(ID));
-    setTimeIDS({
-      timeout: [],
-      interval: []
-    })
+  function clearTimeId(...args) {
+    Object.keys(timeIDS.current).forEach((timeName) => {
+      if(args.includes(timeName) || args.length === 0) {
+        clearTimeout(timeIDS.current[timeName]);
+        clearInterval(timeIDS.current[timeName]);
+        timeIDS.current[timeName] = 0;
+      }
+    }); 
   }
 
   function restartGame(changedState) {
@@ -134,9 +126,8 @@ export function Game () {
       newState.quantity
     );
     
-
+    clearTimeId();
     setNewState(newState);
-    clearTimeId()
   }
 
   function resetGame() {
@@ -149,16 +140,22 @@ export function Game () {
       newState.quantity
     );
 
+    clearTimeId();
     setNewState(newState);
-    clearTimeId()
   }
 
   useEffect(() => {
-    restartGame()
+    restartGame();
+    return () => {
+      clearTimeId()
+    }
   },[])
 
   useEffect(() => {
-    startAnim()
+    startAnim();
+    return () => {
+      clearTimeId()
+    }
   },[state.stateId])
 
   return (
@@ -168,7 +165,7 @@ export function Game () {
 
       <div className="RandNum" key={state.stateId} >
         <div>
-          <span>ошибки: {state.fails}/{Math.round(state.quantity * state.maxFails)}</span>
+          <span>ошибки: {state.fails}/{getMaxFails(state.quantity, state.maxFails)}</span>
           
           <div className="RandNum_field" ref={refRandNum_field}>
             {state.arr.map((_,i) => {

@@ -13,7 +13,7 @@ export function Game () {
   const refBoard = useRef(null);
   
   const [state,setNewState] = useState(logic.startData);
-  let [timeID,setTimeID] = useState(0);
+  const timeID = useRef(0);
 
   function setMove(cell, featureMove) {
     const result = logic.checkMove(featureMove, state);
@@ -51,39 +51,41 @@ export function Game () {
 
   function doesInitialMoves (moves) {
     let nextMove = moves.length;
-    let timeID = 0;
 
     transferFigure(moves[nextMove-1]);
 
-    timeID = setInterval(() => {
-      if(--nextMove == 0) 
-        clearInterval(timeID)
-  
-      transferFigure(moves[nextMove]);
-    },850);
+    if (!timeID.current) 
+      timeID.current = setInterval(() => {
+        if(--nextMove == 0) {
+          clearTimeID();
+        }
 
-    setTimeID(timeID);
+        transferFigure(moves[nextMove]);
+      },850);
   }
 
-  useEffect(() => {
-    restartGame();
-  },[])
+  function clearTimeID() {
+    clearInterval(timeID.current);
+    timeID.current = 0;
+  }
 
 
-  function restartGame(chanedState) {
+  function restartGame(changedState) {
     const newState = logic.getMovesWithState(
       [...refBoard.current.children],
       {
-        idState: Math.random(),
         ...logic.startData,
-        ...chanedState,
+        sequence: state.sequence,
+        idState: Math.random(),
+        ...changedState,
       }
     );
     
-    clearInterval(timeID);
+    clearTimeID();
     doesInitialMoves(newState.moves);
     setNewState(newState);
   }
+
 
   function resetGame() {
     const newState = logic.getMovesWithState(
@@ -94,10 +96,17 @@ export function Game () {
       }
     );
     
-    clearInterval(timeID);
+    clearTimeID()
     doesInitialMoves(newState.moves);
     setNewState(newState);
   }
+
+  useEffect(() => {
+    restartGame();
+    return () => {
+      clearTimeID();
+    }
+  },[])
 
   return  (
     <>

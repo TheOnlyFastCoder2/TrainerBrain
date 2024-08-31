@@ -1,4 +1,5 @@
 import * as forGame from 'lib/forGame';
+import getMaxFails  from "lib/getMaxFails";
 
 export const startData = {
   isWon: [null],
@@ -6,12 +7,13 @@ export const startData = {
   currCard:0,
 
   fails: 0,
+  maxFails: 0.4,
   successes: 0,
 
   withOrderOf: false,
 
   timeShow: {min:2, max: 20, curr: 5},
-  sequence: {min: 3, curr: 3},
+  sequence: {min: 3, curr: 3, max: 20},
 
   gridOfCells: {
     quantity: 64,
@@ -46,7 +48,7 @@ export function checkMove (target, state) {
     }
   }
   
-  if(fails > state.gridOfCells.quantity * 0.1) {
+  if(fails >= getMaxFails(state.sequence.curr, state.maxFails)) {
     resault = "LOSE";
   }
 

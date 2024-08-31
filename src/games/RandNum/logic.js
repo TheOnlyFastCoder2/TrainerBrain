@@ -1,11 +1,12 @@
 import getRandomDigit from 'lib/getRandomDigit';
+import getMaxFails  from "lib/getMaxFails";
 
 export const startData = {
   isWon: [null],
   timeForRemb: 2000,
 
   fails: 0,
-  maxFails: 0.2, // in percent
+  maxFails: 0.2,
   
   currentInd: 0,
   quantity:5,
@@ -21,15 +22,16 @@ export function checkСorrectness (variableVal, state) {
     ? "CORRECT"
     : "INCORRECT"
   );
-
+  console.log(state.fails ,state.quantity)
   if(state.quantity === state.currentInd+1) {
+    
     res += "_"+(
-      state.fails >= Math.round(state.quantity * state.maxFails)
+      state.fails+1 >= getMaxFails(state.quantity, state.maxFails)
       ? "LOSE"
       : "WIN"
     )
   }
-  console.log(res)
+  
   return res;
 }
 

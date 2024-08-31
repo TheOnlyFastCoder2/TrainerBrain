@@ -35,6 +35,7 @@ export default defineConfig({
       "lib": setPath("./src/lib"),
       "games": setPath("./src/games"),
       "components": setPath("./src/components"),
+      "styles": setPath("./src/assets/scss")
     }
   }
 });

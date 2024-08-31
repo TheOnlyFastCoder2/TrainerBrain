@@ -5,9 +5,10 @@ import * as logic from './logic';
 import Settings from "./Settings";
 
 
+
 export  function Game () {
   const refMatrix = useRef(null);
-  let [timeID,setTimeID] = useState(0);
+  const timeID = useRef(0);
   const [unclickable, setUnclickable] = useState("");
 
   const [state,setNewState] = useState(logic.startData);
@@ -27,18 +28,17 @@ export  function Game () {
   function disablePointerEvent () {    
     setUnclickable("unclickable");
 
-    const timeout = setTimeout(() => {
+    timeID.current = setTimeout(() => {
       setUnclickable("");
-      clearTimeout(timeout);
+      clearTimeout(timeID.current);
     },state.timeShow.curr*1000);
-
-    setTimeID(timeout);
   }
 
+  
   useEffect(() => {
     restartGame();
     return () => {
-      clearTimeout(timeID);
+      clearTimeout(timeID.current);
       setUnclickable("");
     }
   },[])
@@ -79,7 +79,7 @@ export  function Game () {
   return (
     <>  
       <FinishGame flag={state.isWon} {...{restartGame}}/>
-      <Settings {...{restartGame,resetGame,state,}}/> 
+      <Settings {...{restartGame,resetGame,state}}/> 
 
       <div className={`Matrix ${unclickable}`} key={state.idState} ref={refMatrix} style=
         {{

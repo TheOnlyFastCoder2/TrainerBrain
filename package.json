@@ -6,21 +6,17 @@
   "scripts": {
     "build": "vite build",
     "preview": "vite preview",
-
-    "scss": "sass --watch ./src/assets/scss/bundler.scss:./src/styles.css",
-
-    "start": " concurrently -k \"vite dev\" \"npm run scss\" "
+    "start": "vite dev "
   },
   "dependencies": {
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
-
   },
   "devDependencies": {
     "@types/react": "^18.0.15",
     "@types/react-dom": "^18.0.6",
     "@vitejs/plugin-react": "^2.0.0",
+    "sass": "^1.77.8",
     "vite": "^3.0.2"
-
   }
 }

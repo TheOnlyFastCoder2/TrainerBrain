@@ -1,16 +1,12 @@
-import Firework from 'lib/components/Firework';
 import { useEffect, useRef } from 'react';
 
-
-
-const Winner = ({restartGame}) => {
+const Winner = ({handleRestartGame}) => {
   return (
     <>
       <div className='wrapper'>
         <h1>You're win</h1>
-        <button onClick={restartGame}>restart</button>
+        <button onClick={handleRestartGame}>restart</button>
       </div>
-      <Firework/> 
     </>
   )
 }
@@ -22,6 +18,9 @@ const Looser = () => (
 export default function ({flag,restartGame}) {
   const refFinishGame = useRef(null);
 
+  function handleRestartGame() {
+    restartGame({isWon:[null]})
+  }
 
   function setLoseEnd () {
     const delay = 1000; 
@@ -32,7 +31,7 @@ export default function ({flag,restartGame}) {
       current.classList.add(flag[0])
 
       const timeout_1 = setTimeout(() => {
-        restartGame()
+        handleRestartGame();
         clearTimeout(timeout_1);
         clearTimeout(timeout);
       },offsetDelay);
@@ -50,7 +49,7 @@ export default function ({flag,restartGame}) {
     <div className={`FinishGame`} ref={refFinishGame}>
       {
         flag[0] === true 
-        ? <Winner {...{restartGame}}/>
+        ? <Winner handleRestartGame={handleRestartGame}/>
         : <Looser/>
       }
     </div>

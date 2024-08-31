@@ -24,9 +24,9 @@ export default function ({title,count,setHook,handler}) {
       }
     
       target.onmouseup = () => {
+        setHook(+input.placeholder);
         clearTimeout(start_t);
         clearInterval(start_i);
-        setHook(+input.placeholder);
       }
     }
   }

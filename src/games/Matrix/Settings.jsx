@@ -4,6 +4,7 @@ import Counter from "lib/components/Counter";
 import List from "lib/components/List";
 import { useState } from 'react';
 import Range from "lib/components/Range";
+import getMaxFails  from "lib/getMaxFails";
 
 export default function ({
   restartGame,
@@ -43,7 +44,7 @@ export default function ({
 
   function setCounterGrid(mode,count) {
     switch (mode) {
-      case "+": count+1 <= state.gridOfCells.quantity * 0.5 && count++;break;
+      case "+": count+1 <= state.sequence.max && count++;break;
       case "-": count-1 >= state.sequence.min && count--;break;
     }
     return count;
@@ -72,6 +73,7 @@ export default function ({
         handler={setCounterGrid}
 
         setHook={(count) => {
+          console.log(count)
           storeOfChanges.sequence = {
             min: state.sequence.min,
             curr: count,
@@ -95,7 +97,7 @@ export default function ({
       />
 
       <p className="Scores">
-        <span>Неудачи: {state.fails}</span>
+        <span>Неудачи: {state.fails}/{getMaxFails(state.sequence.curr, state.maxFails)}</span>
         <span>Успех: {state.successes}</span>
       </p>
       
