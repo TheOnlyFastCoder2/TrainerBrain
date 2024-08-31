@@ -1,6 +1,7 @@
 import {useState} from 'react';
 import Menu from 'components/Menu';
 import GetterGame , {Games} from 'games/GameBundler';
+import ErrorMobile from 'lib/components/ErrorMobile';
 
 
 const GameSection = ({children}) => (
@@ -14,6 +15,7 @@ export default function () {
 
   return (
     <>
+      <ErrorMobile/>
       <GameSection>
         <GetterGame ind={currGame}/>
       </GameSection>

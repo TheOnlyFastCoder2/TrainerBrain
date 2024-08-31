@@ -29,11 +29,33 @@ body {
 }
 
 #root {
+  min-width: 850px;
+  min-height: 550px;
+  
   width: 850px;
   height: 550px;
   position: relative;
   overflow: hidden;
   box-shadow:  0 0 4vh  rgba(0,0,0,0.4);
+}
+
+.ErrorMobile {
+  display: none;
+}
+
+@media  (max-width: 850px) or (max-height: 550px){
+  .Game {
+    display: none;
+  }
+
+  #root {
+    max-width: 100%;
+    min-width: 100vw;
+    min-height: 100vh;
+  }
+  .ErrorMobile {
+    display: flex;
+  }
 }
 
 button,input {
