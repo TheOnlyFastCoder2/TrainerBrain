@@ -117,7 +117,7 @@ export function Game () {
 
   function restartGame(changedState) {
     const newState = {
-      ...logic.startData,
+      ...state,
       ...changedState,
       stateId: [Math.random()],
     };

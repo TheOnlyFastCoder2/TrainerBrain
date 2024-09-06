@@ -22,11 +22,11 @@ export function checkСorrectness (variableVal, state) {
     ? "CORRECT"
     : "INCORRECT"
   );
-  console.log(state.fails ,state.quantity)
+
   if(state.quantity === state.currentInd+1) {
     
     res += "_"+(
-      state.fails+1 >= getMaxFails(state.quantity, state.maxFails)
+      state.fails >= getMaxFails(state.quantity, state.maxFails)
       ? "LOSE"
       : "WIN"
     )
