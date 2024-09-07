@@ -117,11 +117,12 @@ export function Game () {
 
   function restartGame(changedState) {
     const newState = {
-      ...state,
+      ...logic.startData,
+      quantity: state.quantity,
       ...changedState,
       stateId: [Math.random()],
     };
-    
+
     newState.arr =  logic.getRandomNums(
       newState.quantity
     );
@@ -145,6 +146,7 @@ export function Game () {
   }
 
   useEffect(() => {
+    console.log(1)
     restartGame();
     return () => {
       clearTimeId()
@@ -161,7 +163,7 @@ export function Game () {
   return (
     <>
       <Settings {...{restartGame,resetGame, state}}/>
-      <FinishGame flag={state.isWon} {...{restartGame}}/>
+      <FinishGame flag={state.isWon}  {...{restartGame}}/>
 
       <div className="RandNum" key={state.stateId} >
         <div>
