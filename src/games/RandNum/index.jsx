@@ -146,7 +146,6 @@ export function Game () {
   }
 
   useEffect(() => {
-    console.log(1)
     restartGame();
     return () => {
       clearTimeId()
