@@ -1,5 +1,11 @@
+import { useEffect, useRef } from "react";
+
 export default function ({title,count,setHook,handler}) {
-  
+  const refTimer = useRef({
+      t_1: null,
+      t_2: null,
+  });
+
   function setValue(input,value) {
     input.placeholder = value;
   }  
@@ -8,7 +14,6 @@ export default function ({title,count,setHook,handler}) {
     
     if(target) {
 
-      let start_t , start_i;
       const input = target.parentElement.children[1];
       const mode = target.textContent; // increm or dicrem
       // setValue(input,handler(mode,count));
@@ -16,8 +21,8 @@ export default function ({title,count,setHook,handler}) {
         let count = +input.placeholder;
 
         setValue(input,handler(mode,count));
-        start_t = setTimeout(() => {
-          start_i = setInterval( () => {
+        refTimer.current.t_1 = setTimeout(() => {
+          refTimer.current.start_2 = setInterval( () => {
             setValue(input,handler(mode,count));
           },100)
         },1000)
@@ -25,11 +30,18 @@ export default function ({title,count,setHook,handler}) {
     
       target.onmouseup = () => {
         setHook(+input.placeholder);
-        clearTimeout(start_t);
-        clearInterval(start_i);
+        clearTimeout(refTimer.current.t_1);
+        clearInterval(refTimer.current.start_2);
       }
     }
   }
+
+  useEffect(() => {
+    return () => {
+      clearTimeout(refTimer.current.t_1);
+      clearInterval(refTimer.current.start_2);
+    }
+  });
 
   return (
     <div className="Counter">

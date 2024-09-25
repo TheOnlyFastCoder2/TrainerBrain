@@ -47,7 +47,7 @@ export  function Game () {
     const newState = {
       ...state,
       ...chanedState,
-
+      sequence: logic.startData.sequence,
       idState:  Math.random(),
       isWon: [null],
       fails: 0,
@@ -77,31 +77,34 @@ export  function Game () {
   }
 
   return (
-    <>  
+    <> 
+       
       <FinishGame flag={state.isWon} {...{restartGame}}/>
       <Settings {...{restartGame,resetGame,state}}/> 
 
-      <div className={`Matrix ${unclickable}`} key={state.idState} ref={refMatrix} style=
-        {{
-          gridTemplateColumns: `repeat(auto-fill, ${state.gridOfCells.percent}%)`,
-          gridTemplateRows: `repeat(auto-fill, ${state.gridOfCells.percent}%)`,
-        }}
-      >
+      <div className="wrapper">
+        <h5>Запомни правильные карточки</h5>
+        <div className={`Matrix ${unclickable}`} key={state.idState} ref={refMatrix} style=
+          {{
+            gridTemplateColumns: `repeat(auto-fill, ${state.gridOfCells.percent}%)`,
+            gridTemplateRows: `repeat(auto-fill, ${state.gridOfCells.percent}%)`,
+          }}
+        >
+          {state.cards.map(({isCorrect,orderOfNums},i) => {
 
-        {state.cards.map(({isCorrect,orderOfNums},i) => {
-
-          return  (
-            <button 
-              key={i}
-              onClick={checkCard}
-              className={`Matrix_case ${isCorrect}`}>
-              <div className="Matrix_case_front" style={{animationDuration: state.timeShow.curr+"s"}}/>
-              <div className="Matrix_case_back" style={{animationDuration: state.timeShow.curr+"s"}}>
-                {state.withOrderOf && isCorrect && orderOfNums}
-              </div>
-            </button>
-            )
-        })}
+            return  (
+              <button 
+                key={i}
+                onClick={checkCard}
+                className={`Matrix_case ${isCorrect}`}>
+                <div className="Matrix_case_front" style={{animationDuration: state.timeShow.curr+"s"}}/>
+                <div className="Matrix_case_back" style={{animationDuration: state.timeShow.curr+"s"}}>
+                  {state.withOrderOf && isCorrect && orderOfNums}
+                </div>
+              </button>
+              )
+          })}
+        </div>
       </div>
     </>
   )

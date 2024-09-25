@@ -17,6 +17,7 @@ export default function ({items,setCurrGame}) {
           return (
             <li 
             key={i}
+            title = {name}
             onClick = {() => setCurrGame(i)}>
               {name[0]}
             </li>
@@ -24,13 +25,6 @@ export default function ({items,setCurrGame}) {
            
         })}
       </ul>
-
-      {/* <ul className="Menu_options">
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-      </ul> */}
     </nav>
   )
 }

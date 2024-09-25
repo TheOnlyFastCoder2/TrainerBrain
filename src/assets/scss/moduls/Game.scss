@@ -6,6 +6,13 @@
   display: flex;
   justify-content: center;
   align-items: center;
+
+  h5 {
+    color:rgba(255, 255, 255, 0.336);
+    letter-spacing: 2px;
+    font-weight: 600;
+    margin-bottom: 10px;
+  }
 }
 
 .SchulteTable {

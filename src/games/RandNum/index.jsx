@@ -164,21 +164,24 @@ export function Game () {
       <Settings {...{restartGame,resetGame, state}}/>
       <FinishGame flag={state.isWon}  {...{restartGame}}/>
 
-      <div className="RandNum" key={state.stateId} >
-        <div>
-          <span>ошибки: {state.fails}/{getMaxFails(state.quantity, state.maxFails)}</span>
-          
-          <div className="RandNum_field" ref={refRandNum_field}>
-            {state.arr.map((_,i) => {
-              return (
-                <div key={i} className="RandNum_field_item">
-                  <input 
-                      type="text"
-                      onInput={checker}
-                    />
-                </div>
-              )
-            })}
+      <div className="wrapper">
+        <h5>Запомни порядок чисел</h5>
+        <div className="RandNum" key={state.stateId} >
+          <div>
+            <span>ошибки: {state.fails}/{getMaxFails(state.quantity, state.maxFails)}</span>
+            
+            <div className="RandNum_field" ref={refRandNum_field}>
+              {state.arr.map((_,i) => {
+                return (
+                  <div key={i} className="RandNum_field_item">
+                    <input 
+                        type="text"
+                        onInput={checker}
+                      />
+                  </div>
+                )
+              })}
+            </div>
           </div>
         </div>
       </div>

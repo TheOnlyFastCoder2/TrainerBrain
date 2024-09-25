@@ -43,9 +43,10 @@ export default function ({
   }
 
   function setCounterGrid(mode,count) {
+    console.log(mode, count, state.sequence.max)
     switch (mode) {
-      case "+": count+1 <= state.sequence.max && count++;break;
-      case "-": count-1 >= state.sequence.min && count--;break;
+      case "+": count < state.sequence.max && count++;break;
+      case "-": count > state.sequence.min && count--;break;
     }
     return count;
   }
@@ -73,7 +74,7 @@ export default function ({
         handler={setCounterGrid}
 
         setHook={(count) => {
-          console.log(count)
+         
           storeOfChanges.sequence = {
             min: state.sequence.min,
             curr: count,

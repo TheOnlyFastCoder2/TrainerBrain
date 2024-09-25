@@ -119,13 +119,16 @@ export function Game () {
           state,
       }}/>
       
-      <div className="Knight ">
-          <div className="Figure" ref={refFigure}>
-            <img src={img_knight}/>
-          </div>
-          <div key={state.idState} className="Knight_chessBoard start" ref={refBoard}>
-              <Grid {...{setMove}}/>
-          </div>
+      <div className="wrapper">
+        <h5>Запомни порядок ходов у коня в обратном порядке</h5>
+        <div className="Knight">
+            <div className="Figure" ref={refFigure}>
+              <img src={img_knight}/>
+            </div>
+            <div key={state.idState} className="Knight_chessBoard start" ref={refBoard}>
+                <Grid {...{setMove}}/>
+            </div>
+        </div>
       </div>
     </>
   )
