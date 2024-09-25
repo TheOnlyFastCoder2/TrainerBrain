@@ -48,7 +48,6 @@ export function checkMove (target, state) {
     }
   }
   
-  
   if(successes === state.sequence.curr) {
     resault = "WIN";
   }
@@ -56,7 +55,6 @@ export function checkMove (target, state) {
   if(fails >= getMaxFails(state.sequence.curr, state.maxFails)) {
     resault = "LOSE";
   }
-
-
+  
   return resault;
 }
