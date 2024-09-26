@@ -44,10 +44,11 @@ export  function Game () {
   },[])
 
   function restartGame (chanedState) {
+    console.log(chanedState)
     const newState = {
       ...state,
       ...chanedState,
-      sequence: logic.startData.sequence,
+      sequence: chanedState?.sequence ?? logic.startData.sequence,
       idState:  Math.random(),
       isWon: [null],
       fails: 0,
