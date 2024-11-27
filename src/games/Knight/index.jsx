@@ -20,6 +20,7 @@ export function Game () {
 
     switch(result) {
       case "WIN": 
+        cell.classList.add("correct");
         transferFigure(featureMove);
         setNewState({...state,isWon: [true]}); 
         break;

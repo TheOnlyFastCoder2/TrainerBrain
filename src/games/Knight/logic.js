@@ -37,7 +37,7 @@ export function getMovesWithState (cells, currentState) {
 export function checkMove(featureMove, currentState) {
   let {currentMove,moves,sequence} = currentState;
 
-  if(currentMove+1 === sequence.max) return 'WIN';
+  if(currentMove === sequence.max) return 'WIN';
   else {
     return (
       moves[currentMove+1] === featureMove
