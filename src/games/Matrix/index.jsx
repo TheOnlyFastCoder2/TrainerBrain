@@ -43,16 +43,15 @@ export  function Game () {
     }
   },[])
 
-  function restartGame (chanedState) {
-    console.log(chanedState)
+  function restartGame (changedState) {
     const newState = {
       ...state,
-      ...chanedState,
-      sequence: chanedState?.sequence ?? logic.startData.sequence,
+      ...changedState,
+      sequence: changedState?.sequence ?? state.sequence,
       idState:  Math.random(),
       isWon: [null],
       fails: 0,
-      successes: 0
+      successes: 0,
     }
 
     newState.cards = logic.getRandomCards(
@@ -80,7 +79,7 @@ export  function Game () {
   return (
     <> 
        
-      <FinishGame flag={state.isWon} {...{restartGame}}/>
+      <FinishGame flag={state.isWon} restartGame={restartGame}/>
       <Settings {...{restartGame,resetGame,state}}/> 
 
       <div className="wrapper">
